@@ -24,6 +24,29 @@ end mux2_4_arc;
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+entity mux2_5 is
+    port(
+         a: in std_logic_vector(4 downto 0);
+         b: in std_logic_vector(4 downto 0);
+         o: out std_logic_vector(4 downto 0);
+         s: in std_logic
+        );
+end entity;
+
+architecture mux2_5_arc of mux2_5 is
+begin
+    process(a,b,s) begin
+        if s='1' then
+            o<=b;
+        else
+            o<=a;
+        end if;
+    end process;
+end mux2_5_arc;
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
 entity mux2_32 is
     port(
          a: in std_logic_vector(31 downto 0);
@@ -53,8 +76,8 @@ entity mux4 is
         b:in std_logic_vector(31 downto 0);
         c:in std_logic_vector(31 downto 0);
         d:in std_logic_vector(31 downto 0);
-        s:in std_logic_vector(1 downto 0)
-        o:out std_logic_vector(31 downto 0);
+        s:in std_logic_vector(1 downto 0);
+        o:out std_logic_vector(31 downto 0)
         );
 end entity mux4;
 

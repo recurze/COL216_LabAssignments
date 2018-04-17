@@ -21,8 +21,8 @@ entity datapath is
         MW : in std_logic;
         IorD: in std_logic;
         Asrc1 : in std_logic;
-        Asrc2 : in std_logic_vector(1 downto 0)
-        Rsrc: in std_logic_vector(1 downto 0);
+        Asrc2 : in std_logic_vector(1 downto 0);
+        Rsrc: in std_logic;
         M2R : in std_logic;
 
         I: in std_logic;
@@ -30,7 +30,7 @@ entity datapath is
 
         out_flags : out std_logic_vector(3 downto 0);
         instruction: out std_logic_vector(31 downto 0);
-        result: out std_logic_vector(31 downto 0);
+        result: out std_logic_vector(31 downto 0)
     );
 end datapath;
 
@@ -39,7 +39,7 @@ architecture datapath_arc of datapath is
     signal pc, ins : std_logic_vector(31 downto 0);
     signal ad, rd, wd: std_logic_vector(31 downto 0);
     signal dr, res : std_logic_vector(31 downto 0); 
-    signal A, B, : std_logic_vector(31 downto 0);
+    signal A, B : std_logic_vector(31 downto 0);
     signal mul_out, shift_out : std_logic_vector(31 downto 0);
     signal rd1, rd2 : std_logic_vector(31 downto 0); 
     signal rad1, rad2 : std_logic_vector(3 downto 0);
@@ -49,13 +49,14 @@ architecture datapath_arc of datapath is
     signal out_NZCV : std_logic_vector(3 downto 0);
 
     signal shift_in: std_logic_vector(31 downto 0);
-    signal shift_amt: std_logic_vector(31 downto 0);
+    signal shift_amt: std_logic_vector(4 downto 0);
+    signal rot_amt : std_logic_vector(4 downto 0);
     signal li, B1: std_logic_vector(31 downto 0);
 
 begin
     -- muxes-----------------------------------
     en_IorD:
-    entity WORK.mux2_4 port map(
+    entity WORK.mux2_32 port map(
         a=>pc,
         b=>res,
         s=>IorD,
@@ -104,10 +105,11 @@ begin
         o=>shift_in
     );
 
+    rot_amt<='0'&ins(11 downto 8);
     en_Shifter_amt:
     entity WORK.mux2_5 port map(
         a=>ins(11 downto 7),
-        b=>'0'&ins(11 downto 8),
+        b=>rot_amt,
         s=>I,
         o=>shift_amt
     );

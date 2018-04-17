@@ -6,7 +6,7 @@ entity D_FF is
         clk: in std_logic;
         D: in std_logic;
         Q: out std_logic
-    )
+    );
 end D_FF;
 
 architecture D_FF_arc of D_FF is
@@ -27,7 +27,7 @@ entity register32 is
         clk:in std_logic;
         a:in std_logic_vector(31 downto 0);
         k:out std_logic_vector(31 downto 0)
-    )
+    );
 end register32;
 
 architecture register32_arc of register32 is
@@ -41,7 +41,7 @@ begin
           Q=> k(i)
       );
   end generate;
-end reg;
+end architecture;
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
