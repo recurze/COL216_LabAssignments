@@ -1,0 +1,2 @@
+To play, run: g++ othello.cpp -o othello && ./othello
+KeyboardInterrupt to quit.
