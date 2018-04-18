@@ -40,7 +40,6 @@ architecture datapath_arc of datapath is
     signal ad, rd, wd: std_logic_vector(31 downto 0);
     signal dr, res : std_logic_vector(31 downto 0); 
     signal A, B : std_logic_vector(31 downto 0);
-    signal mul_out, shift_out : std_logic_vector(31 downto 0);
     signal rd1, rd2 : std_logic_vector(31 downto 0); 
     signal rad1, rad2 : std_logic_vector(3 downto 0);
     signal ex12, s2, ex8 : std_logic_vector(31 downto 0);
@@ -48,6 +47,7 @@ architecture datapath_arc of datapath is
     signal alu_out : std_logic_vector(32 downto 0); 
     signal out_NZCV : std_logic_vector(3 downto 0);
 
+    signal mul_out, shift_out : std_logic_vector(31 downto 0);
     signal shift_in: std_logic_vector(31 downto 0);
     signal shift_amt: std_logic_vector(4 downto 0);
     signal rot_amt : std_logic_vector(4 downto 0);
@@ -186,20 +186,17 @@ begin
         k=>res
     );
     -----------------------------------------------
-
---    MW_4(0)<=MW;
---    MW_4(1)<=MW;
---    MW_4(2)<=MW;
---    MW_4(3)<=MW;
---    en_MRMW:
---    entity WORK.blk_mem_gen_0 port map(
---        BRAM_PORTA_addr=>ad,
---        BRAM_PORTA_clk=>clk,
---        BRAM_PORTA_din=>B,
---        BRAM_PORTA_dout=>rd,
---        BRAM_PORTA_en=>MR,--read enable may be
---        BRAM_PORTA_rst=>rst, 
---        BRAM_PORTA_we=>MW_4 );
+    -- memory
+    en_mem:
+    entity WORK.memory port map(
+        clk=>clk,
+        rst=>rst,
+        MR=>MR,
+        MW=>MW,
+        ad=>ad,
+        wd=>wd,
+        rd=>rd
+    );
 
     -- extender
     en_ex12:

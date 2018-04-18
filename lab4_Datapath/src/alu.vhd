@@ -18,7 +18,7 @@ architecture Alu_arc of Alu is
 begin
     a<='0'&input1;
     b<='0'&input2;
-    process(a, b) begin
+    process(a, b, opcode) begin
         case opcode is 
             when "0000" => temp <= b and a;                 --and
             when "0001" => temp <= b xor a;                 --eor

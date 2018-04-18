@@ -16,9 +16,10 @@ end shifter;
 architecture shifter_arc of shifter is
     signal temp: std_logic_vector(31 downto 0);
 begin
-    process (input1,shift_amount,shift_type) begin
+    process (temp, input1,shift_amount,shift_type) begin
         if shift_amount="00000" then
             temp<=input1;
+            shift_carry<='0';
         else
             case shift_type is
                 when "00" =>

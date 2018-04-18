@@ -38,7 +38,7 @@ architecture DP_C_arc of DP_C is
     signal IorD: std_logic;
     signal Asrc1: std_logic;
     signal Asrc2: std_logic_vector(1 downto 0);
-    signal Rsrc: std_logic_vector(1 downto 0);
+    signal Rsrc: std_logic;
     signal M2R: std_logic;
 
     signal I: std_logic;
@@ -103,6 +103,6 @@ begin
         M2R=>M2R,
 
         I=>I,
-        M=>M,
+        M=>M
     );
 end architecture;

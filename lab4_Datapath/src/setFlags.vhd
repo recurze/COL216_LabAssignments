@@ -29,6 +29,9 @@ begin
                 (c1 and (input1(31) or input2(31)));
             out_NZCV(1)<=c2;
             out_NZCV(0)<=c1 xor c2;
+        else
+            c1<='0';
+            c2<='0';
         end if;
     end process;
 end setFlags_arc;

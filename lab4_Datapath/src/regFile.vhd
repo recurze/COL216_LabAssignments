@@ -4,6 +4,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity D_FF is
     port(
         clk: in std_logic;
+        rst: in std_logic;
         D: in std_logic;
         Q: out std_logic
     );
@@ -13,9 +14,11 @@ architecture D_FF_arc of D_FF is
 begin
     process(clk)
     begin
-       if clk='1' and clk'EVENT  then
-           Q <= D;
-       end if;
+        if rst='1' then
+            Q<='0';
+        elsif rising_edge(clk) then
+            Q<=D;
+        end if;
     end process;
 end architecture;
 
@@ -25,6 +28,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity register32 is
     port(
         clk:in std_logic;
+        rst:in std_logic;
         a:in std_logic_vector(31 downto 0);
         k:out std_logic_vector(31 downto 0)
     );
@@ -37,6 +41,7 @@ begin
       R:
       entity WORK.D_FF port map(
           clk=>clk,
+          rst=>rst,
           D=>a(i),
           Q=> k(i)
       );
@@ -74,6 +79,7 @@ begin
         r:
         entity WORK.register32 port map (
           clk=>clk,
+          rst=>rst,
           a=>in_data(i),
           k=>out_data(i)
         );

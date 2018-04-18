@@ -1,5 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.numeric_std.all;
+use IEEE.STD_LOGIC_unsigned.ALL;
 
 use WORK.mytypes.all;
 
@@ -21,32 +23,32 @@ architecture memory_arc of memory is
 begin
     process(clk) begin
         -- instructions
-        mem_arr(0)<=std_logic_vector(unsigned(60817412,32));
-        mem_arr(4)<=std_logic_vector(unsigned(110104616,32));
-        mem_arr(8)<=std_logic_vector(unsigned(8462336,32));
-        mem_arr(12)<=std_logic_vector(unsigned(109060140,32));
-        --mem_arr(16)<=std_logic_vector(unsigned(,32));
-        --mem_arr(20)<=std_logic_vector(unsigned(,32));
-        --mem_arr(24)<=std_logic_vector(unsigned(,32));
-        --mem_arr(28)<=std_logic_vector(unsigned(,32));
-        --mem_arr(32)<=std_logic_vector(unsigned(,32));
-        --mem_arr(36)<=std_logic_vector(unsigned(,32));
-        --mem_arr(40)<=std_logic_vector(unsigned(,32));
+        mem_arr(0)<=std_logic_vector(to_unsigned(60817412,32));
+        mem_arr(4)<=std_logic_vector(to_unsigned(110104616,32));
+        mem_arr(8)<=std_logic_vector(to_unsigned(8462336,32));
+        mem_arr(12)<=std_logic_vector(to_unsigned(109060140,32));
+        --mem_arr(16)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(20)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(24)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(28)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(32)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(36)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(40)<=std_logic_vector(to_unsigned(,32));
 
         -- data
-        mem_arr(44)<=std_logic_vector(unsigned(2,32));
-        mem_arr(48)<=std_logic_vector(unsigned(0,32));
-        --mem_arr(52)<=std_logic_vector(unsigned(,32));
-        --mem_arr(56)<=std_logic_vector(unsigned(,32));
-        --mem_arr(60)<=std_logic_vector(unsigned(,32));
-        --mem_arr(64)<=std_logic_vector(unsigned(,32));
-        --mem_arr(68)<=std_logic_vector(unsigned(,32));
-        --mem_arr(72)<=std_logic_vector(unsigned(,32));
-        --mem_arr(76)<=std_logic_vector(unsigned(,32));
-        --mem_arr(80)<=std_logic_vector(unsigned(,32));
+        mem_arr(44)<=std_logic_vector(to_unsigned(2,32));
+        mem_arr(48)<=std_logic_vector(to_unsigned(0,32));
+        --mem_arr(52)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(56)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(60)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(64)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(68)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(72)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(76)<=std_logic_vector(to_unsigned(,32));
+        --mem_arr(80)<=std_logic_vector(to_unsigned(,32));
 
         if rising_edge(clk) and MW='1' then
-            mem_arr<=wd;
+            mem_arr(to_integer(unsigned(ad)))<=wd;
         end if;
 
         if MR='1' then
