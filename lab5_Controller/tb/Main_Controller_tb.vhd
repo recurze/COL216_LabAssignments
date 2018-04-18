@@ -38,7 +38,7 @@ architecture Main_Controller_tb_arc of Main_Controller_tb is
     --signal undefined: std_logic;
 begin
     uut:
-    entity WORK.Main_Main_Controller port map (
+    entity WORK.Main_Controller port map (
             p=>p,
             ins => ins,
             current_state=>current_state,
@@ -59,7 +59,7 @@ begin
             M2R=>M2R,
 
             I=>I,
-            M=>M,
+            M=>M
     );
 
     clk_process: process begin
@@ -80,58 +80,70 @@ begin
         -----------------------------------------------------------
         ---------------------  case fetch--------------------------
         -----------------------------------------------------------
+        wait for clk_period/2;
         assert ((PW = '1') and (IW='1') and (MR='1') and (IorD='0') and (Asrc1='0') and (Asrc2="01")) report "Error: control signal for fetch is wrong";
-        wait for clk_period;
+        wait for clk_period/2;
 
         ----------------------------------------------------------
         ------------------- pre-case rdAB ------------------------
         ----------------------------------------------------------
         current_state<=rdAb;
+        ins(3 downto 0)<="1101";
         -----------------------------------------------------------
         ---------------------  case rdAB--------------------------
         -----------------------------------------------------------
-        assert (BW = '1' and AW = '1' and Rsrc="00" and ((ins(3 downto 0)="1001" and M='1') or (ins(3 downto 0)="1001" and M='0')) report "Error: control signal of rdAB is wrong";
-        wait for clk_period;
+        wait for clk_period/2;
+        assert (BW = '1' and AW = '1' and Rsrc="00" and ((ins(3 downto 0)="1001" and M='1') or (ins(3 downto 0)/="1001" and M='0'))) report "Error: control signal of rdAB is wrong";
+        wait for clk_period/2;
 
         ----------------------------------------------------------
         ------------------- pre-case arith------------------------
         ----------------------------------------------------------
         current_state<=arith;
+        ins(3 downto 0)<="1001";
+        ins(4)<='0';
         -----------------------------------------------------------
         ---------------------  case arith--------------------------
         -----------------------------------------------------------
-        assert (resw = '1' and Fset = p and Asrc1 = '1' and Asrc2 = "00" and ((ins(3 downto 0)="1001" and M='1') or (ins(3 downto 0)="1001" and M='0'))) report "Error: control signal of arith is wrong";
-        wait for clk_period;
+        wait for clk_period/2;
+        assert (I=ins(4) and resw = '1' and Asrc1 = '1' and Asrc2 = "00" and ((ins(3 downto 0)="1001" and M='1') or (ins(3 downto 0)/="1001" and M='0'))) report "Error: control signal of arith is wrong";
+        wait for clk_period/2;
 
         ----------------------------------------------------------
         ------------------- pre-case wrRF ------------------------
         ----------------------------------------------------------
         current_state<=wrRF;
+        p<='1';
         -----------------------------------------------------------
         ---------------------  case wrRF--------------------------
         -----------------------------------------------------------
+        wait for clk_period/2;
         assert (M2R = '0' and RW = p) report "Error: control signal of wrRF is wrong";
-        wait for clk_period;
+        wait for clk_period/2;
 
         ----------------------------------------------------------
         ------------------- pre-case addr ------------------------
         ----------------------------------------------------------
         current_state<=addr;
+        ins(4)<='1';
         -----------------------------------------------------------
         ---------------------  case addr--------------------------
         -----------------------------------------------------------
-        assert (resW='1' and Asrc1='1' and Asrc2="10" and Rsrc="10" and I=ins(4)) "Error: control signal of addr is wrong";
-        wait for clk_period;
+        wait for clk_period/2;
+        assert (resW='1' and Asrc1='1' and Asrc2="10" and Rsrc="10" and I=ins(4)) report "Error: control signal of addr is wrong";
+        wait for clk_period/2;
 
         ----------------------------------------------------------
         ------------------- pre-case wrM ------------------------
         ----------------------------------------------------------
         current_state<=wrM;
+        p<='0';
         -----------------------------------------------------------
         ---------------------  case wrM--------------------------
         -----------------------------------------------------------
-        assert (MW=p and IorD='1') "Error: control signal of wrM is wrong";
-        wait for clk_period;
+        wait for clk_period/2;
+        assert (MW=p and IorD='1') report "Error: control signal of wrM is wrong";
+        wait for clk_period/2;
 
         ----------------------------------------------------------
         ------------------- pre-case rdM ------------------------
@@ -140,28 +152,33 @@ begin
         -----------------------------------------------------------
         ---------------------  case rdM--------------------------
         -----------------------------------------------------------
-        assert (DW='1' and MR='1' and IorD='1') "Error: control signal of rdM is wrong";
-        wait for clk_period;
+        wait for clk_period/2;
+        assert (DW='1' and MR='1' and IorD='1') report "Error: control signal of rdM is wrong";
+        wait for clk_period/2;
 
         ----------------------------------------------------------
         ------------------- pre-case M2RF ------------------------
         ----------------------------------------------------------
         current_state<=M2RF;
+        p<='1';
         -----------------------------------------------------------
         ---------------------  case M2RF--------------------------
         -----------------------------------------------------------
-        assert (RW='1' M2R='1')) "Error: control signal of M2RF is wrong";
-        wait for clk_period;
+        wait for clk_period/2;
+        assert (RW=p and M2R='1') report "Error: control signal of M2RF is wrong";
+        wait for clk_period/2;
 
         ----------------------------------------------------------
         ------------------- pre-case brn ------------------------
         ----------------------------------------------------------
         current_state<=brn;
+        p<='1';
         -----------------------------------------------------------
         ---------------------  case brn--------------------------
         -----------------------------------------------------------
-        assert (PW=p and Asr1='0' and Asrc2="11") "Error: control signal of brn is wrong";
-        wait for clk_period;
+        wait for clk_period/2;
+        assert (PW=p and Asrc1='0' and Asrc2="11") report "Error: control signal of brn is wrong";
+        wait for clk_period/2;
 
         err_cnt_signal <= err_cnt;
         -- summary of all the tests
