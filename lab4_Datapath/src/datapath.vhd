@@ -77,7 +77,7 @@ begin
         a=>ins(19 downto 16),
         b=>ins(11 downto 8),
         s=>M,
-        o=>rad2
+        o=>rad1
     );
 
     en_M2R:
@@ -148,12 +148,14 @@ begin
     en_PW:
     entity WORK.register32 port map(
         clk=>clk,
+        rst=>rst,
         a=>alu_out(31 downto 0),
         k=>pc);
 
     en_IW:
     entity WORK.register32 port map(
         clk=>clk,
+        rst=>rst,
         a=>rd,
         k=>ins
     );
@@ -161,6 +163,7 @@ begin
     en_DW:
     entity WORK.register32 port map(
         clk=>clk,
+        rst=>rst,
         a=>rd,
         k=>dr
     );
@@ -168,6 +171,7 @@ begin
     en_AW:
     entity WORK.register32 port map(
         a=>rd1,
+        rst=>rst,
         clk=>clk,
         k=>A
     );
@@ -176,12 +180,14 @@ begin
     entity WORK.register32 port map(
         a=>rd2,
         clk=>clk,
+        rst=>rst,
         k=>B
     );
 
     en_resW:
     entity WORK.register32 port map(
         clk=>clk,
+        rst=>rst,
         a=>alu_out(31 downto 0),
         k=>res
     );
@@ -219,7 +225,7 @@ begin
 
     -- register file
     en_RW:
-    entity WORK.RegFile port map(
+    entity WORK.reg_file port map(
         clk =>clk,
         rst =>rst,
         RW  =>RW,

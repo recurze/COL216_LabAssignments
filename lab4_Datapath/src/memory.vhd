@@ -19,7 +19,7 @@ entity memory is
 end entity;
 
 architecture memory_arc of memory is
-    signal mem_arr: arr;
+    signal mem_arr: memory_array;
 begin
     process(clk) begin
         -- instructions

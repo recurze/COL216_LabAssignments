@@ -26,22 +26,22 @@ begin
                     temp <=
                         std_logic_vector(shift_left(unsigned(input1),
                         to_integer(unsigned(shift_amount)))); --LSL
-                     shift_carry <= input1(32-to_integer(unsigned(shift_amount)));
+                     shift_carry <= input1(31-to_integer(unsigned(shift_amount)));
                 when "01" =>
                     temp <=
                         std_logic_vector(shift_right(unsigned(input1),
                         to_integer(unsigned(shift_amount)))); --LSR
-                    shift_carry <= input1(to_integer(unsigned(shift_amount))-1);
+                    shift_carry <= input1(to_integer(unsigned(shift_amount)));
                 when "10" =>
                     temp <=
                         std_logic_vector(shift_right(signed(input1),
                         to_integer(unsigned(shift_amount)))); --ASR
-                    shift_carry <= input1(to_integer(unsigned(shift_amount))-1);
+                    shift_carry <= input1(to_integer(unsigned(shift_amount)));
                 when "11" =>
                     temp <=
                         std_logic_vector(rotate_right(signed(input1),
                         to_integer(unsigned(shift_amount)))); --ROR
-                   shift_carry <= input1(to_integer(unsigned(shift_amount))-1);
+                   shift_carry <= input1(to_integer(unsigned(shift_amount)));
                 when others=>null;
             end case;
         end if;
