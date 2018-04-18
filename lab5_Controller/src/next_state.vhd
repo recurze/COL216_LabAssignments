@@ -3,7 +3,7 @@ use IEEE.NUMERIC_STD.ALL;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-use WORK.mytypes.all
+use WORK.mytypes.all;
 
 entity next_state is
     port (
@@ -54,6 +54,7 @@ begin
 
             -- Branch instruction
             when brn => ns<=fetch;
+            when others=> null;
         end case;
     end process;
 end architecture;

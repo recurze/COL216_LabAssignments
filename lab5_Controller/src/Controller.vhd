@@ -9,10 +9,10 @@ entity Controller is
         clk :in std_logic;
         rst: in std_logic;
         NCZV: in std_logic_vector(3 downto 0);
-        ins :in std_logic_vector(31 downto 0); 
+        ins :in std_logic_vector(31 downto 0);
 
         -- output of Actrl.
-        op:out std_logic_vector(3 downto 0)
+        op:out std_logic_vector(3 downto 0);
 
         -- output of Bctrl.
         p: out std_logic;
@@ -33,7 +33,7 @@ entity Controller is
         Rsrc:out std_logic_vector(1 downto 0);
         M2R:out std_logic;
         I:out std_logic;
-        M:out std_logic;
+        M:out std_logic
 
         -- not_implemented:out std_logic;
         -- undefined:out std_logic;
@@ -67,7 +67,7 @@ begin
     MC:
     entity WORK.Main_Controller port map(
         p=>flag,
-        ins=>MC_ins, 25,7-4
+        ins=>MC_ins,
         current_state=>cs,
 
         PW=>PW,
@@ -90,14 +90,14 @@ begin
     );
 
     ns_ins<=ins(27 downto 26)&ins(20);
-    NS:
+    Next_State:
     entity WORK.next_state port map(
         ins=>ns_ins,
         current_state=>cs,
         next_state=>ns
     );
 
-    CS:
+    Control_state:
     entity WORK.control_state port map(
         clk=>clk,
         rst=>rst,

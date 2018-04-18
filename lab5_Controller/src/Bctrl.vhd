@@ -18,7 +18,9 @@ begin
     C<=NCZV(2);
     Z<=NCZV(1);
     V<=NCZV(0);
-    process(cond,NCZV) begin
+
+    p<=temp;
+    process(cond, NCZV, temp) begin
         case cond is
             when "0000" => temp<=Z;
             when "0001" => temp<=not Z;
@@ -38,5 +40,4 @@ begin
             when others => temp<='0';
         end case;
     end process;
-    p<=temp;
 end architecture;

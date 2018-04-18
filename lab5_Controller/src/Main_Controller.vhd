@@ -27,9 +27,9 @@ entity Main_Controller is
         M2R: out std_logic;
 
         I: out std_logic; -- Immediate
-        M: out std_logic; -- Multiplication
+        M: out std_logic -- Multiplication
     );
-end entity Main_Controller;
+end entity;
 
 architecture Main_Controller_arc of Main_Controller is
     signal cs: state;
@@ -37,7 +37,7 @@ begin
     cs<=current_state;
     process(cs, p)
     begin
-        case(cs) is
+        case cs is
             when fetch =>
                 PW<='1';
                 IW<='1';

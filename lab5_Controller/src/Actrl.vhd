@@ -20,6 +20,8 @@ begin
     F<=ins(10 downto 9);
     opcode<=ins(8 downto 5);
     U<=ins(7);
+    -- not really needed.
+    -- too lazy to change everywhere.
     L<=ins(4);
     M<=ins(3 downto 0);
 
@@ -32,11 +34,7 @@ begin
             end if;
         elsif F="01" then --DT
             if U='1' then
-                if L='1' then
-                    op<="0100";
-                else
-                    op<="0110";
-                end if;
+                op<="0100";
             else
                 op<="0010";
             end if;

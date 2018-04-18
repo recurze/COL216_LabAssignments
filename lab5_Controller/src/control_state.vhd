@@ -17,7 +17,7 @@ architecture control_state_arc of control_state is
     signal cs, ns: state;
 begin
     current_state<=cs;
-    next_state<=ns;
+    ns<=next_state;
 
     process(clk, rst) begin
         if rst='1' then
