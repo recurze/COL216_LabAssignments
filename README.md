@@ -1,15 +1,16 @@
 # COL216_LabAssignments
 ## Lab assignmets from COL216: Computer Architecture
 
-* 1. Lab1: Sorting *
+
+1. Lab1: Sorting 
 * Description: Implementing a simple sorting algorithm like [Bubble Sort](https://en.wikipedia.org/wiki/Bubble_sort) to sort n numbers.
 * Language: ARM assembly
 
-* 2. Lab2: Happy Numbers *
+2. Lab2: Happy Numbers
 ..* Description: Finding [Happy Numbers](https://en.wikipedia.org/wiki/Happy_number) less than 10000.
 ..* Language: ARM assembly and C++
 
-* 3. Lab3: Othello/Reversi *
+3. Lab3: Othello/Reversi
 ..* Description: Creating a two player [Reversi game](https://en.wikipedia.org/wiki/Reversi) using "Embest-Board Plugin" on ARMSim# simulator.
 ..* Language: ARM assembly and C++
 
