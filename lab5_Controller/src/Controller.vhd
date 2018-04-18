@@ -30,7 +30,7 @@ entity Controller is
         IorD:out std_logic;
         Asrc1:out std_logic;
         Asrc2:out std_logic_vector(1 downto 0);
-        Rsrc:out std_logic_vector(1 downto 0);
+        Rsrc:out std_logic;
         M2R:out std_logic;
         I:out std_logic;
         M:out std_logic

@@ -20,7 +20,7 @@ begin
     V<=NCZV(0);
 
     p<=temp;
-    process(cond, NCZV, temp) begin
+    process(cond, N, C, Z, V, temp) begin
         case cond is
             when "0000" => temp<=Z;
             when "0001" => temp<=not Z;

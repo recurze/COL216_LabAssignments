@@ -23,7 +23,7 @@ entity Main_Controller is
         IorD: out std_logic;
         Asrc1: out std_logic;
         Asrc2: out std_logic_vector(1 downto 0);
-        Rsrc: out std_logic_vector(1 downto 0);
+        Rsrc: out std_logic;
         M2R: out std_logic;
 
         I: out std_logic; -- Immediate
@@ -48,7 +48,7 @@ begin
             when rdAB=>
                 AW<='1';
                 BW<='1';
-                Rsrc<="00";
+                Rsrc<='0';
                 -- new additions.
                 if ins(3 downto 0)="1001" then
                     M<='1';
@@ -73,7 +73,7 @@ begin
                 resW<='1';
                 Asrc1<='1';
                 Asrc2<="10";
-                Rsrc<="10";
+                Rsrc<='1';
                 -- new additions.
                 I<=ins(4);
             when wrM=>
