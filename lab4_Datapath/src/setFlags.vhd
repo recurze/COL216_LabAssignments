@@ -17,8 +17,8 @@ architecture setFlags_arc of setFlags is
     signal c1, c2: std_logic;
 begin
     process(result) begin
-        out_NZCV<="0000";
         if p='1' then
+            out_NZCV<="0000";
             out_NZCV(3)<=result(31);
             if result=0 then
                 out_NZCV(2)<='1';
@@ -29,9 +29,6 @@ begin
                 (c1 and (input1(31) or input2(31)));
             out_NZCV(1)<=c2;
             out_NZCV(0)<=c1 xor c2;
-        else
-            c1<='0';
-            c2<='0';
         end if;
     end process;
 end setFlags_arc;
