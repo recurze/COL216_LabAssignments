@@ -37,7 +37,7 @@ begin
             when "1100" => temp<=(not Z) and (not (N xor V));
             when "1101" => temp<=Z or (N xor V);
             when "1110" => temp<='1';
-            when others => temp<='0';
+            when others => temp<='1';
         end case;
     end process;
 end architecture;
