@@ -6,7 +6,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity Bctrl is
     port (
         cond: in std_logic_vector(3 downto 0);
-        NCZV: in std_logic_vector(3 downto 0);
+        NZCV: in std_logic_vector(3 downto 0);
         p: out std_logic
     );
 end Bctrl;
@@ -14,10 +14,10 @@ end Bctrl;
 architecture Bctrl_arc of Bctrl is
     signal N,C,Z,V, temp: std_logic;
 begin
-    N<=NCZV(3);
-    C<=NCZV(2);
-    Z<=NCZV(1);
-    V<=NCZV(0);
+    N<=NZCV(3);
+    Z<=NZCV(2);
+    C<=NZCV(1);
+    V<=NZCV(0);
 
     p<=temp;
     process(cond, N, C, Z, V, temp) begin
