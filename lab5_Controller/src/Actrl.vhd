@@ -3,9 +3,11 @@ use IEEE.NUMERIC_STD.ALL;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
+use WORK.mytypes.all;
 entity Actrl is
     port (
         -- 27-26, 24-20, 7-4
+        state: in state;
         ins: in std_logic_vector(10 downto 0);
         op: out std_logic_vector(3 downto 0)
     );
@@ -25,8 +27,10 @@ begin
     L<=ins(4);
     M<=ins(3 downto 0);
 
-    process(F, opcode, L, M, U) begin
-        if F="00" then --DP
+    process(F, opcode, L, M, U, state) begin
+        if state=fetch  then
+            op<="0100";
+        elsif F="00" then --DP
             if M="1001" then
                 op<="1101";
             else
