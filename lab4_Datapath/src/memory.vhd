@@ -23,17 +23,31 @@ architecture memory_arc of memory is
 begin
     process(MR, MW, wd, ad, clk) begin
         -- instructions
+
         -- mov r0, #4
-        --mem_arr(0)<=std_logic_vector(to_unsigned(4087349252,32));
         mem_arr(0)<="11110011101000000000000000000100";
+
         -- ldr r1, [r0, #40]
-        --mem_arr(4)<=std_logic_vector(to_unsigned(4136636456,32));
         mem_arr(4)<="11110110100100000001000000101000";
+
         -- add r2, r1, r0
-        --mem_arr(8)<=std_logic_vector(to_unsigned(8462336,32));
         mem_arr(8)<="11110000100000010010000000000000";
+
         --str r2, [r0, #44]
         mem_arr(12)<="11110110100000000010000000101100";
+
+        --cmp r2, #6
+        mem_arr(16)<="11110011010000100010000000000110";
+
+        --beq 28
+        mem_arr(20)<="00001010000000000000000000000001";
+
+        --mov r3, r1, lsl #1
+        mem_arr(24)<="11110001101000000011000010000001";
+
+        --mov r3, r1, lsl #2
+        mem_arr(28)<="11110001101000000011000100000001";
+
         --mem_arr(12)<=std_logic_vector(to_unsigned(109060140,32));
         --mem_arr(16)<=std_logic_vector(to_unsigned(,32));
         --mem_arr(20)<=std_logic_vector(to_unsigned(,32));
@@ -61,6 +75,8 @@ begin
 
         if MR='1' then
             rd<=mem_arr(to_integer(unsigned(ad)));
+        else
+            rd<=(others=>'0');
         end if;
     end process;
 end architecture;
