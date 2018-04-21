@@ -21,12 +21,20 @@ end entity;
 architecture memory_arc of memory is
     signal mem_arr: memory_array;
 begin
-    process(clk) begin
+    process(MR, MW, wd, ad, clk) begin
         -- instructions
-        mem_arr(0)<=std_logic_vector(to_unsigned(60817412,32));
-        mem_arr(4)<=std_logic_vector(to_unsigned(110104616,32));
-        mem_arr(8)<=std_logic_vector(to_unsigned(8462336,32));
-        mem_arr(12)<=std_logic_vector(to_unsigned(109060140,32));
+        -- mov r0, #4
+        --mem_arr(0)<=std_logic_vector(to_unsigned(4087349252,32));
+        mem_arr(0)<="11110011101000000000000000000100";
+        -- ldr r1, [r0, #40]
+        --mem_arr(4)<=std_logic_vector(to_unsigned(4136636456,32));
+        mem_arr(4)<="11110110100100000001000000101000";
+        -- add r2, r1, r0
+        --mem_arr(8)<=std_logic_vector(to_unsigned(8462336,32));
+        mem_arr(8)<="11110000100000010010000000000000";
+        --str r2, [r0, #44]
+        mem_arr(12)<="11110110100000000010000000101100";
+        --mem_arr(12)<=std_logic_vector(to_unsigned(109060140,32));
         --mem_arr(16)<=std_logic_vector(to_unsigned(,32));
         --mem_arr(20)<=std_logic_vector(to_unsigned(,32));
         --mem_arr(24)<=std_logic_vector(to_unsigned(,32));
@@ -37,7 +45,7 @@ begin
 
         -- data
         mem_arr(44)<=std_logic_vector(to_unsigned(2,32));
-        mem_arr(48)<=std_logic_vector(to_unsigned(0,32));
+        --mem_arr(48)<=std_logic_vector(to_unsigned(0,32));
         --mem_arr(52)<=std_logic_vector(to_unsigned(,32));
         --mem_arr(56)<=std_logic_vector(to_unsigned(,32));
         --mem_arr(60)<=std_logic_vector(to_unsigned(,32));

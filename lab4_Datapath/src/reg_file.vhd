@@ -5,6 +5,7 @@ entity register32 is
     port (
         clk: in std_logic;
         rst: in std_logic;
+        enable: in std_logic;
         a: in std_logic_vector(31 downto 0);
         k: out std_logic_vector(31 downto 0)
     );
@@ -15,7 +16,7 @@ begin
     process(clk, rst) begin
         if rst='1' then
             k<=(others=>'0');
-        elsif rising_edge(clk) then
+        elsif rising_edge(clk) and enable='1' then
             k<=a;
         end if;
     end process;

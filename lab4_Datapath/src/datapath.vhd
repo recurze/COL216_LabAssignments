@@ -117,8 +117,8 @@ begin
     -- To choose if shifted or multiplied
     en_MulorShift:
     entity WORK.mux2_32 port map(
-        a=>mul_out,
-        b=>shift_out,
+        a=>shift_out,
+        b=>mul_out,
         s=>M,
         o=>B1
     );
@@ -149,6 +149,7 @@ begin
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
+        enable=>PW;
         a=>alu_out(31 downto 0),
         k=>pc);
 
@@ -156,6 +157,7 @@ begin
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
+        enable=>IW;
         a=>rd,
         k=>ins
     );
@@ -164,23 +166,26 @@ begin
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
+        enable=>DW;
         a=>rd,
         k=>dr
     );
 
     en_AW:
     entity WORK.register32 port map(
-        a=>rd1,
-        rst=>rst,
         clk=>clk,
+        rst=>rst,
+        enable=>AW;
+        a=>rd1,
         k=>A
     );
 
     en_BW:
     entity WORK.register32 port map(
-        a=>rd2,
         clk=>clk,
         rst=>rst,
+        enable=>BW;
+        a=>rd2,
         k=>B
     );
 
@@ -188,6 +193,7 @@ begin
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
+        enable=>resW;
         a=>alu_out(31 downto 0),
         k=>res
     );
@@ -200,7 +206,7 @@ begin
         MR=>MR,
         MW=>MW,
         ad=>ad,
-        wd=>wd,
+        wd=>rd2,
         rd=>rd
     );
 
