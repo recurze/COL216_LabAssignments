@@ -16,6 +16,7 @@ entity datapath is
         AW : in std_logic;
         BW : in std_logic;
         resW : in std_logic;
+        Fset : in std_logic;
         RW : in std_logic;
         MR : in std_logic;
         MW : in std_logic;
@@ -43,8 +44,8 @@ architecture datapath_arc of datapath is
     signal rd1, rd2 : std_logic_vector(31 downto 0); 
     signal rad1, rad2 : std_logic_vector(3 downto 0);
     signal ex12, s2, ex8 : std_logic_vector(31 downto 0);
-    signal alu_in1, alu_in2 : std_logic_vector(31 downto 0); 
-    signal alu_out : std_logic_vector(32 downto 0); 
+    signal alu_in1, alu_in2, alu_out2: std_logic_vector(31 downto 0);
+    signal alu_out1 : std_logic_vector(32 downto 0); 
     signal out_NZCV : std_logic_vector(3 downto 0);
 
     signal mul_out, shift_out : std_logic_vector(31 downto 0);
@@ -149,15 +150,15 @@ begin
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
-        enable=>PW;
-        a=>alu_out(31 downto 0),
+        enable=>PW,
+        a=>alu_out2,
         k=>pc);
 
     en_IW:
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
-        enable=>IW;
+        enable=>IW,
         a=>rd,
         k=>ins
     );
@@ -166,7 +167,8 @@ begin
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
-        enable=>DW;
+        enable=>DW,
+    
         a=>rd,
         k=>dr
     );
@@ -175,7 +177,7 @@ begin
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
-        enable=>AW;
+        enable=>AW,
         a=>rd1,
         k=>A
     );
@@ -184,7 +186,7 @@ begin
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
-        enable=>BW;
+        enable=>BW,
         a=>rd2,
         k=>B
     );
@@ -193,8 +195,8 @@ begin
     entity WORK.register32 port map(
         clk=>clk,
         rst=>rst,
-        enable=>resW;
-        a=>alu_out(31 downto 0),
+        enable=>resW,
+        a=>alu_out2,
         k=>res
     );
     -----------------------------------------------
@@ -268,20 +270,21 @@ begin
         opcode=>op,
         input1=>alu_in1,
         input2=>alu_in2,
-        result=>alu_out
+        result_f=>alu_out1,
+        result_r=>alu_out2
     );
 
     --changing flags
     en_F:
     entity WORK.setFlags port map(
-        p=> p,
+        p=> Fset,
         input1 => alu_in1,
         input2 => alu_in2,
-        result => alu_out,
+        result => alu_out1,
         out_NZCV => out_flags
     );
 
     instruction<=ins;
-    result<=alu_out(31 downto 0);
+    result<=alu_out2;
 
 end datapath_arc;
