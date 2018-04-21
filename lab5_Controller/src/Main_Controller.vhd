@@ -45,6 +45,13 @@ begin
                 IorD<='0';
                 Asrc1<='0';
                 Asrc2<="01";
+
+                DW<='0';
+                AW<='0';
+                BW<='0';
+                resW<='0';
+                RW<='0';
+                MW<='0';
             when rdAB=>
                 AW<='1';
                 BW<='1';
@@ -55,6 +62,14 @@ begin
                 else
                     M<='0';
                 end if;
+
+                DW<='0';
+                PW<='0';
+                IW<='0';
+                resW<='0';
+                RW<='0';
+                MW<='0';
+                MR<='0';
             when arith=>
                 resW<='1';
                 Asrc1<='1';
@@ -66,9 +81,27 @@ begin
                     M<='0';
                 end if;
                 I<=ins(4);
+
+                MR<='0';
+                IW<='0';
+                PW<='0';
+                DW<='0';
+                MW<='0';
+                RW<='0';
+                BW<='0';
+                AW<='0';
             when wrRF=>
                 RW<=p;
                 M2R<='0';
+
+                MR<='0';
+                IW<='0';
+                PW<='0';
+                DW<='0';
+                MW<='0';
+                BW<='0';
+                AW<='0';
+                resW<='0';
             when addr=>
                 resW<='1';
                 Asrc1<='1';
@@ -76,20 +109,64 @@ begin
                 Rsrc<='1';
                 -- new additions.
                 I<=ins(4);
+
+                MR<='0';
+                IW<='0';
+                PW<='0';
+                DW<='0';
+                MW<='0';
+                RW<='0';
+                BW<='0';
+                AW<='0';
             when wrM=>
                 MW<=p;
                 IorD<='1';
+
+                MR<='0';
+                IW<='0';
+                PW<='0';
+                DW<='0';
+                RW<='0';
+                BW<='0';
+                AW<='0';
+                resW<='0';
             when rdM=>
                 DW<='1';
                 MR<='1';
                 IorD<='1';
+
+                IW<='0';
+                PW<='0';
+                MW<='0';
+                RW<='0';
+                BW<='0';
+                AW<='0';
+                resW<='0';
             when M2RF=>
                 RW<=p;
                 M2R<='1';
+
+                MR<='0';
+                IW<='0';
+                PW<='0';
+                DW<='0';
+                MW<='0';
+                BW<='0';
+                AW<='0';
+                resW<='0';
             when brn=>
                 PW<=p;
                 Asrc1<='0';
                 Asrc2<="11";
+
+                MR<='0';
+                IW<='0';
+                DW<='0';
+                MW<='0';
+                RW<='0';
+                BW<='0';
+                AW<='0';
+                resW<='0';                
             when others =>
                 null;
         end case;
