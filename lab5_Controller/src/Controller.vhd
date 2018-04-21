@@ -8,7 +8,7 @@ entity Controller is
     port (
         clk :in std_logic;
         rst: in std_logic;
-        NCZV: in std_logic_vector(3 downto 0);
+        NZCV: in std_logic_vector(3 downto 0);
         ins :in std_logic_vector(31 downto 0);
 
         -- output of Actrl.
@@ -24,6 +24,7 @@ entity Controller is
         AW:out std_logic;
         BW:out std_logic;
         resW:out std_logic;
+        Fset:out std_logic;
         RW:out std_logic;
         MR:out std_logic;
         MW:out std_logic;
@@ -60,7 +61,7 @@ begin
     Bctrl:
     entity WORK.Bctrl port map(
         cond=>ins(31 downto 28),
-        NCZV=>NCZV,
+        NZCV=>NZCV,
         p=>flag
     );
 
@@ -81,6 +82,7 @@ begin
         MR=>MR,
         MW=>MW,
         IorD=>IorD,
+        Fset=>Fset,
         Asrc1=>Asrc1,
         Asrc2=>Asrc2,
         Rsrc=>Rsrc,
