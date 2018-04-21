@@ -25,6 +25,7 @@ entity Main_Controller is
         Asrc2: out std_logic_vector(1 downto 0);
         Rsrc: out std_logic;
         M2R: out std_logic;
+        Fset: out std_logic;
 
         I: out std_logic; -- Immediate
         M: out std_logic -- Multiplication
@@ -52,6 +53,7 @@ begin
                 resW<='0';
                 RW<='0';
                 MW<='0';
+                Fset<='0';
             when rdAB=>
                 AW<='1';
                 BW<='1';
@@ -70,6 +72,7 @@ begin
                 RW<='0';
                 MW<='0';
                 MR<='0';
+                Fset<='0';
             when arith=>
                 resW<='1';
                 Asrc1<='1';
@@ -81,6 +84,7 @@ begin
                     M<='0';
                 end if;
                 I<=ins(4);
+                Fset<=p;
 
                 MR<='0';
                 IW<='0';
@@ -102,6 +106,7 @@ begin
                 BW<='0';
                 AW<='0';
                 resW<='0';
+                Fset<='0';
             when addr=>
                 resW<='1';
                 Asrc1<='1';
@@ -118,6 +123,7 @@ begin
                 RW<='0';
                 BW<='0';
                 AW<='0';
+                Fset<='0';
             when wrM=>
                 MW<=p;
                 IorD<='1';
@@ -130,6 +136,7 @@ begin
                 BW<='0';
                 AW<='0';
                 resW<='0';
+                Fset<='0';
             when rdM=>
                 DW<='1';
                 MR<='1';
@@ -142,6 +149,7 @@ begin
                 BW<='0';
                 AW<='0';
                 resW<='0';
+                Fset<='0';
             when M2RF=>
                 RW<=p;
                 M2R<='1';
@@ -154,6 +162,7 @@ begin
                 BW<='0';
                 AW<='0';
                 resW<='0';
+                Fset<='0';
             when brn=>
                 PW<=p;
                 Asrc1<='0';
@@ -166,7 +175,8 @@ begin
                 RW<='0';
                 BW<='0';
                 AW<='0';
-                resW<='0';                
+                resW<='0';
+                Fset<='0';
             when others =>
                 null;
         end case;
