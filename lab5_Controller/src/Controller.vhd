@@ -52,6 +52,7 @@ begin
 
     Actrl:
     entity WORK.Actrl port map(
+        state=> cs,
         ins=> actrl_ins,
         op=>op
     );
