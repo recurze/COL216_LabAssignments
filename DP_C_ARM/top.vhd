@@ -16,7 +16,7 @@ architecture DP_C_arc of DP_C is
     signal instruction: std_logic_vector(31 downto 0);
 
     -- out from datapath into controller
-    signal NCZV: std_logic_vector(3 downto 0):= "0000";
+    signal NZCV: std_logic_vector(3 downto 0):= "0000";
 
     -- Control signals
     -- Actrl
@@ -32,6 +32,7 @@ architecture DP_C_arc of DP_C is
     signal AW: std_logic;
     signal BW: std_logic;
     signal resW: std_logic;
+    signal Fset: std_logic;
     signal RW: std_logic;
     signal MR: std_logic;
     signal MW: std_logic;
@@ -59,6 +60,7 @@ begin
         AW=>AW,
         BW=>BW,
         resW=>resW,
+        Fset=>Fset,
         RW=>RW,
         MR=>MR,
         MW=>MW,
@@ -71,7 +73,7 @@ begin
         I=>I,
         M=>M,
 
-        out_flags=>NCZV,
+        out_flags=>NZCV,
         instruction=>instruction,
         result=>result
     );
@@ -80,7 +82,7 @@ begin
     entity WORK.Controller port map(
         clk=>clk,
         rst=>rst,
-        NCZV=>NCZV,
+        NZCV=>NZCV,
         ins=>instruction,
 
         op=>op,
@@ -93,6 +95,7 @@ begin
         AW=>AW,
         BW=>BW,
         resW=>resW,
+        Fset=>Fset,
         RW=>RW,
         MR=>MR,
         MW=>MW,
